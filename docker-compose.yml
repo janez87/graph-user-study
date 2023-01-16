@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  neo4j:
+    build: graph
+    environment:
+      - NEO4J_AUTH=none
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/import:/var/lib/neo4j/import
+      - ./neo4j/logs:/logs
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+  jupyter:
+    build: notebook/
+    volumes:
+       - ./:/home/jovyan/work/data
+    ports:
+      - "8888:8888"
+    environment:
+      - GRANT_SUDO=yesd
